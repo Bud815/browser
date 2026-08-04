@@ -20,5 +20,5 @@ sleep 1
 # 启动 nginx
 nginx &
  
-# 启动 MCP 服务
-PORT=8081 python main.py
+# 启动 MCP 服务：用环境变量 PORT（Zeabur 注入，默认 8080），不再写死 8081
+PORT=${PORT:-8080} python main.py
