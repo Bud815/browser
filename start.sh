@@ -20,5 +20,9 @@ sleep 1
 # 启动 nginx
 nginx &
  
+# 清理 Chromium 残留锁文件（防上次崩溃后档案锁残留导致启动失败）
+mkdir -p /data/browser-profile
+rm -f /data/browser-profile/Singleton*
+ 
 # 启动 MCP 服务
 PORT=8081 python main.py
