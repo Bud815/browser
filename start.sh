@@ -17,8 +17,8 @@ sleep 2
 websockify --web=/usr/share/novnc 6080 localhost:5900 &
 sleep 1
  
-# nginx 内部监听 8088（不占对外端口），main.py 占 Zeabur 注入的 PORT (8080)
+# 启动 nginx
 nginx &
  
-# 启动 MCP 服务：用 Zeabur 注入的 PORT（默认 8080）
-PORT=${PORT:-8080} python main.py
+# 启动 MCP 服务
+PORT=8081 python main.py
