@@ -16,10 +16,8 @@ printf '%s:%s\n' "$WEB_USER" "$(openssl passwd -apr1 "$WEB_PASS")" > /etc/nginx/
 # MCP 接口单独一套
 printf '%s:%s\n' "$MCP_USER" "$(openssl passwd -apr1 "$MCP_PASS")" > /etc/nginx/.htpasswd-mcp
 
-# 远程桌面本身的密码
-if [ ! -f /data/vncpass ]; then
-  x11vnc -storepasswd "$VNC_PASS" /data/vncpass >/dev/null 2>&1
-fi
+# 远程桌面本身的密码：每次启动都按环境变量重写，改了密码才会生效
+x11vnc -storepasswd "$VNC_PASS" /data/vncpass >/dev/null 2>&1
 
 # 启动虚拟显示器
 Xvfb :99 -screen 0 1280x900x24 &
