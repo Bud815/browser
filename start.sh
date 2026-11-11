@@ -19,6 +19,12 @@ printf '%s:%s\n' "$MCP_USER" "$(openssl passwd -apr1 "$MCP_PASS")" > /etc/nginx/
 # 远程桌面本身的密码：每次启动都按环境变量重写，改了密码才会生效
 x11vnc -storepasswd "$VNC_PASS" /data/vncpass >/dev/null 2>&1
 
+# 上次如果被强杀，虚拟屏的锁会留下来卡住下一次启动，先清掉
+rm -f /tmp/.X99-lock /tmp/.X11-unix/X99 2>/dev/null
+
+# 浏览器 profile 的死锁同理，指向的是上一个容器的名字
+rm -f /data/browser-profile/Singleton* 2>/dev/null
+
 # 启动虚拟显示器
 Xvfb :99 -screen 0 1280x900x24 &
 export DISPLAY=:99
