@@ -7,9 +7,14 @@ export TMPDIR=/data/tmp
 VNC_PASS="${VNC_PASS:-wispforbud}"
 WEB_USER="${WEB_USER:-wisp}"
 WEB_PASS="${WEB_PASS:-wispforbud}"
+MCP_USER="${MCP_USER:-mcp}"
+MCP_PASS="${MCP_PASS:-wisp-mcp-815}"
 
 # 网页入口的账号密码
 printf '%s:%s\n' "$WEB_USER" "$(openssl passwd -apr1 "$WEB_PASS")" > /etc/nginx/.htpasswd
+
+# MCP 接口单独一套
+printf '%s:%s\n' "$MCP_USER" "$(openssl passwd -apr1 "$MCP_PASS")" > /etc/nginx/.htpasswd-mcp
 
 # 远程桌面本身的密码
 if [ ! -f /data/vncpass ]; then
